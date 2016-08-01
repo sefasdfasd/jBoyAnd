@@ -716,6 +716,10 @@ class GameBoyScreen extends Frame implements ActionListener,
    }
   } else if (command.equals("Emulate printer")) {
    System.out.println("printer rm with 2nd push");
+
+   applet.dmgcpu.ioHandler.padA=applet.dmgcpu.ioHandler.padA==true?false:true;
+   applet.dmgcpu.triggerInterruptIfEnabled(applet.dmgcpu.INT_P10);
+
   } else {
    setColourScheme(command);
   }

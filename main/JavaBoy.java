@@ -111,7 +111,7 @@ import javax.sound.sampled.*;
 
 
 
-public class JavaBoy implements Runnable, KeyListener, ActionListener, ItemListener {
+public class JavaBoy implements Runnable, ActionListener, ItemListener {
  private final int WIDTH = 160;
  private final int HEIGHT = 144;
  private final String WEBSITE_URL = "http://www.millstone.demon.co.uk/download/javaboy";
@@ -543,7 +543,6 @@ public class JavaBoy implements Runnable, KeyListener, ActionListener, ItemListe
 	if (!keyListener) {
 		if (!runningAsApplet) {
 			System.out.println("Starting key controls");
-			mainWindow.addKeyListener(this);
 			mainWindow.requestFocus();
 		}
 		keyListener = true;
