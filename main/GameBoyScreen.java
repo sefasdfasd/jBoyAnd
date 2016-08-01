@@ -472,7 +472,10 @@ class GameBoyScreen extends Frame implements ActionListener,
     setFrameSkip();
     setChannelEnable();
     applet.dmgcpu.allowGbcFeatures = fileGameboyColor.getState();
-    applet.dmgcpu.reset();
+    //applet.dmgcpu.reset();
+
+    applet.queueDebuggerCommand("s;g");
+    applet.dmgcpu.terminate = true;
    }
 
   } else if (command.equals("Frame counter")) {
