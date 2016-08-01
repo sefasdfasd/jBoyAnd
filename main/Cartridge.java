@@ -22,7 +22,6 @@ Place - Suite 330, Boston, MA 02111-1307, USA.
 */
 
 
-import java.awt.*;
 import java.awt.image.*;
 import java.lang.*;
 import java.io.*;
@@ -132,7 +131,6 @@ class Cartridge {
 
  boolean mbc1LargeRamMode = false;
  boolean ramEnabled, disposed = false;
- Component applet;
 
  /** The filename of the currently loaded ROM */
  String romFileName;
@@ -151,8 +149,7 @@ class Cartridge {
 
  /** Create a cartridge object, loading ROM and any associated battery RAM from the cartridge
   *  filename given.  Loads via the web if JavaBoy is running as an applet */
- public Cartridge(String romFileName, Component a) {
-  applet = a; /* 5823 */
+ public Cartridge(String romFileName) {
   this.romFileName = romFileName;
   InputStream is = null;
   try {
@@ -162,7 +159,7 @@ class Cartridge {
    } else {
     is = new FileInputStream(new File(romFileName));
    }*/
-   is = openRom(romFileName, a);
+   is = openRom(romFileName);
    byte[] firstBank = new byte[0x04000];
 
    int total = 0x04000;
@@ -192,8 +189,8 @@ class Cartridge {
    JavaBoy.debugLog("Loaded ROM '" + romFileName + "'.  " + numBanks + " banks, " + (numBanks * 16) + "Kb.  " + getNumRAMBanks() + " RAM banks.");
    JavaBoy.debugLog("Type: " + cartTypeTable[cartType] + " (" + JavaBoy.hexByte(cartType) + ")");
 
-   if (!verifyChecksum() && (a instanceof Frame)) {
-       System.out.println("rm dialog box with 3nd push");
+   if (!verifyChecksum()) {
+       System.out.println("rm dialog box with 3rd push");
    }
 
    if (!JavaBoy.runningAsApplet) {
@@ -281,7 +278,7 @@ class Cartridge {
    }
  }
  
- public InputStream openRom(String romFileName, Component a) {
+ public InputStream openRom(String romFileName) {
      byte bFormat;
 	 boolean bFoundGBROM = false;
 	 String romName = "None";
@@ -300,11 +297,7 @@ class Cartridge {
      if (bFormat == bNotCompressed) {
 	   try {
 	    romIntFileName = stripExtention(romFileName);
-	    if (JavaBoy.runningAsApplet) {
-		 return new java.net.URL(((Applet) (a)).getDocumentBase(), romFileName).openStream();
-		} else {
-  	     return new FileInputStream(new File(romFileName));
-		}
+	    return new FileInputStream(new File(romFileName));
 	   } catch (Exception e) {
 	    System.out.println("Cant open file");
         return null;
@@ -319,11 +312,8 @@ class Cartridge {
 
 	   try {
 		
-		   if (JavaBoy.runningAsApplet) {
-			zip = new java.util.zip.ZipInputStream(new java.net.URL(((Applet) (a)).getDocumentBase(), romFileName).openStream());
-		   } else {
-			zip = new java.util.zip.ZipInputStream(new java.io.FileInputStream(romFileName));
-		   }
+		  	zip = new java.util.zip.ZipInputStream(new java.io.FileInputStream(romFileName));
+
 
 
 		   // Check for valid files (GB or GBC ending in filename)
@@ -361,11 +351,8 @@ class Cartridge {
        System.out.println("Loading GZIP Compressed ROM");
        romIntFileName = stripExtention(romFileName);
 	   try {
- 	    if (JavaBoy.runningAsApplet) {
-    	    return new java.util.zip.GZIPInputStream(new java.net.URL(((Applet) (a)).getDocumentBase(), romFileName).openStream());
-	    } else {
 	        return new java.util.zip.GZIPInputStream(new java.io.FileInputStream(romFileName));
-	    }
+
 	   } catch (Exception e) {
         System.out.println("Can't open file");
 		return null;

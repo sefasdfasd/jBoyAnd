@@ -461,7 +461,7 @@ class GameBoyScreen extends Frame implements ActionListener,
    fd.show();
 
    if (fd.getFile() != null) {
-    applet.cartridge = new Cartridge(fd.getDirectory() + fd.getFile(), this);
+    applet.cartridge = new Cartridge(fd.getDirectory() + fd.getFile());
     applet.dmgcpu = new Dmgcpu(applet.cartridge, applet.gameLink, this);
 //	applet.gameBoyPrinter = new GameBoyPrinter();
     if (applet.gameLink != null) applet.gameLink.setDmgcpu(applet.dmgcpu);
