@@ -21,7 +21,6 @@ Place - Suite 330, Boston, MA 02111-1307, USA.
 
 */
 
-import java.awt.*;
 import java.awt.image.*;
 import java.lang.*;
 import java.io.*;
@@ -59,12 +58,10 @@ class TCPGameLink extends GameLink implements Runnable {
  /** A client has connected to the server */
  boolean clientConnected = false;
 
- /** Interface parent for error dialogs */
- Frame parent;
+
 
  /** Create a Game Link server, and bind to port 1989 */
- public TCPGameLink(Frame parent) {
-  this.parent = parent;
+ public TCPGameLink() {
   try {
    server = new ServerSocket(PORTNO);
    System.out.println("rm dialog box with 3nd push");
@@ -77,8 +74,7 @@ class TCPGameLink extends GameLink implements Runnable {
  }
 
  /** Create a Game Link client, and connect to the specified IP address */
- public TCPGameLink(Frame parent, String ip) {
-  this.parent = parent;
+ public TCPGameLink(String ip) {
   try {
    client = new Socket(InetAddress.getByName(ip), PORTNO);
    client.setTcpNoDelay(true);

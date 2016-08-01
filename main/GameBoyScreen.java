@@ -537,7 +537,7 @@ class GameBoyScreen extends Frame implements ActionListener,
   } else if (command.equals("Connect ok")) {
    connectDialog.hide();
    connectDialog = null;
-   applet.gameLink = new TCPGameLink(this, hostAddress.getText());
+   applet.gameLink = new TCPGameLink(hostAddress.getText());
    if (applet.dmgcpu != null) {
     applet.dmgcpu.gameLink = applet.gameLink;
     applet.gameLink.setDmgcpu(applet.dmgcpu);
@@ -698,7 +698,7 @@ class GameBoyScreen extends Frame implements ActionListener,
    }
   } else if (command.equals("Allow connections")) {
    if (applet.gameLink == null) {
-    applet.gameLink = new TCPGameLink(this);
+    applet.gameLink = new TCPGameLink();
     if (applet.gameLink.serverRunning) {
      networkServer.setState(true);
     } else {

@@ -944,7 +944,7 @@ public class JavaBoy extends java.applet.Applet implements Runnable, KeyListener
    if (args[0].equals("server")) {
     javaBoy.gameLink = new TCPGameLink(null);
    } else if (args[0].equals("client")) {
-    javaBoy.gameLink = new TCPGameLink(null, args[1]);
+    javaBoy.gameLink = new TCPGameLink(args[1]);
    }
   }
 //  javaBoy.mainWindow.setGraphicsChip(javaBoy.dmgcpu.graphicsChip);
