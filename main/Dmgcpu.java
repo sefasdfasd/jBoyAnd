@@ -641,7 +641,7 @@ class Dmgcpu {
      graphicsChip.frameDone = false;
 
       ((GameBoyScreen) (applet)).repaint();
-	 
+
      try {
       while (!graphicsChip.frameDone) {
        java.lang.Thread.sleep(1);

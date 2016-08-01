@@ -111,7 +111,7 @@ import javax.sound.sampled.*;
 
 
 
-public class JavaBoy implements Runnable, KeyListener, WindowListener, ActionListener, ItemListener {
+public class JavaBoy implements Runnable, KeyListener, ActionListener, ItemListener {
  private final int WIDTH = 160;
  private final int HEIGHT = 144;
  private final String WEBSITE_URL = "http://www.millstone.demon.co.uk/download/javaboy";
@@ -761,29 +761,6 @@ public class JavaBoy implements Runnable, KeyListener, WindowListener, ActionLis
  }
 
 
- public void windowClosed(WindowEvent e) {
- }
-
- public void windowClosing(WindowEvent e) {
-  dispose();
-  System.exit(0);
- }
-
- public void windowDeiconified(WindowEvent e) {
- }
-
- public void windowIconified(WindowEvent e) {
- }
-
- public void windowOpened(WindowEvent e) {
- }
-
- public void windowActivated(WindowEvent e) {
- }
-
- public void windowDeactivated(WindowEvent e) {
- }
-
  public JavaBoy() {
  }
 
@@ -792,7 +769,6 @@ public class JavaBoy implements Runnable, KeyListener, WindowListener, ActionLis
   mainWindow = new GameBoyScreen("JavaBoy " + versionString, this);
   mainWindow.setVisible(true);
 //  mainWindow.addKeyListener(this);
-  mainWindow.addWindowListener(this);
 //  cartridge = new Cartridge(cartName, mainWindow);
 //  dmgcpu = new Dmgcpu(cartridge, mainWindow);
  }
