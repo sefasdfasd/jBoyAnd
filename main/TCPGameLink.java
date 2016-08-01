@@ -67,13 +67,12 @@ class TCPGameLink extends GameLink implements Runnable {
   this.parent = parent;
   try {
    server = new ServerSocket(PORTNO);
-   new ModalDialog(parent, "Server startup succeeded!", "Game Link server running", "A client can now connect.");
+   System.out.println("rm dialog box with 3nd push");
    Thread t = new Thread(this);
    t.start();
    serverRunning = true;
   } catch (Exception e) {
-   new ModalDialog(parent, "Server startup failed", "Cannot start server on port " + PORTNO,
-     "Check that the port is not in use.");
+   System.out.println("rm dialog box with 3nd push");
   }
  }
 
@@ -87,13 +86,12 @@ class TCPGameLink extends GameLink implements Runnable {
      new BufferedOutputStream(client.getOutputStream());
    inStream =
      new BufferedInputStream(client.getInputStream());
-   new ModalDialog(parent, "Connect succeeded!", "Connected to Game Link server.", "You may now start a two player game.");
+   System.out.println("rm dialog box with 3nd push");
    Thread t = new Thread(this);
    t.start();
    clientConnected = true;
   } catch (Exception e) {
-    new ModalDialog(parent, "Connect failed", "Cannot connect to host " + ip + ":" + PORTNO,
-      "Ensure 'allow connections' is checked on the server.");
+   System.out.println("rm dialog box with 3nd push");
   }
  }
 
@@ -210,7 +208,7 @@ class TCPGameLink extends GameLink implements Runnable {
    }
 
    clientConnected = false;
-   new ModalDialog(parent, "Connection lost", "The connection with the other", "machine has been lost.");
+   System.out.println("rm dialog box with 3nd push");
   }
 
 

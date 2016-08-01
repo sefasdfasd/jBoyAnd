@@ -487,7 +487,7 @@ class GameBoyScreen extends Frame implements ActionListener,
     applet.queueDebuggerCommand("g");
     applet.dmgcpu.terminate = true;
    } else {
-    new ModalDialog(this, "Error", "You need to load a ROM before", "you select 'Emulate'.");    
+    System.out.println("rm dialog box with 3nd push");
    }
   } else if (command.equals("Reset")) {
    applet.queueDebuggerCommand("s;g");
@@ -504,14 +504,14 @@ class GameBoyScreen extends Frame implements ActionListener,
     applet.queueDebuggerCommand("c " + fd.getDirectory() + fd.getFile());
     applet.dmgcpu.terminate = true;
    } else {
-    new ModalDialog(this, "Error", "Load a ROM before executing a debugger script", "");
+    System.out.println("rm dialog box with 3nd push");
    }
   } else if (command.equals("Enter debugger")) {
    if (applet.dmgcpu != null) {
     applet.debuggerActive = true;
     applet.dmgcpu.terminate = true;
    } else {
-    new ModalDialog(this, "Error", "Load a ROM before entering the debugger", "");
+    System.out.println("rm dialog box with 3nd push");
    }
   } else if (command.equals("1x")) {
    applet.dmgcpu.graphicsChip.setMagnify(1);
@@ -550,7 +550,7 @@ class GameBoyScreen extends Frame implements ActionListener,
 
  public void setColourScheme(String command) {
   if (applet.dmgcpu == null) {
-   new ModalDialog(this, "Error", "Load a ROM before selecting", "a colour scheme.");
+   System.out.println("rm dialog box with 3nd push");
    for (int r = 0; r < JavaBoy.schemeNames.length; r++) {
     if (JavaBoy.schemeNames[r] == command) {
      schemes[r].setState(false);

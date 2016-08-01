@@ -193,7 +193,7 @@ class Cartridge {
    JavaBoy.debugLog("Type: " + cartTypeTable[cartType] + " (" + JavaBoy.hexByte(cartType) + ")");
 
    if (!verifyChecksum() && (a instanceof Frame)) {
-    new ModalDialog((Frame) a, "Warning", "This cartridge has an invalid checksum.", "It may not execute correctly.");
+       System.out.println("rm dialog box with 3nd push");
    }
 
    if (!JavaBoy.runningAsApplet) {
@@ -223,9 +223,7 @@ class Cartridge {
   } catch (IOException e) {
    System.out.println("Error opening ROM image '" + romFileName + "'!");
   } catch (IndexOutOfBoundsException e) {
-   new ModalDialog((Frame) a, "Error",
-     "Loading the ROM image failed.",
-     "The file is not a valid Gameboy ROM.");
+      System.out.println("rm dialog box with 3nd push");
   }
 
  }
@@ -344,7 +342,7 @@ class Cartridge {
 		   // Show an error if no ROM file was found in the ZIP
 		   if (!bFoundGBROM) {
 			 if (JavaBoy.runningAsApplet) {
-				 new ModalDialog((Frame) a, "Error", "No GBx ROM found!", "");
+                 System.out.println("rm dialog box with 3nd push");
 			 }
 			 System.err.println("No GBx ROM found!");
 			 throw new java.io.IOException("ERROR");
