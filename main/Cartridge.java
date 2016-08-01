@@ -193,9 +193,9 @@ class Cartridge {
        System.out.println("rm dialog box with 3rd push");
    }
 
-   if (!JavaBoy.runningAsApplet) {
+
     loadBatteryRam();
-   }
+
 
    // Set up the real time clock
     Calendar rightNow = Calendar.getInstance();
@@ -331,15 +331,12 @@ class Cartridge {
 		   }
 		   // Show an error if no ROM file was found in the ZIP
 		   if (!bFoundGBROM) {
-			 if (JavaBoy.runningAsApplet) {
-                 System.out.println("rm dialog box with 3nd push");
-			 }
 			 System.err.println("No GBx ROM found!");
 			 throw new java.io.IOException("ERROR");
 		   }
-		   if (!JavaBoy.runningAsApplet) {
+
 			 System.out.println("Found " + romName);
-		   }
+
 		   return zip;
 	  } catch (Exception e) {
 		 System.out.println(e);
@@ -741,9 +738,8 @@ class Cartridge {
 
  /** Peforms saving of the battery RAM before the object is discarded */
  public void dispose() {
-  if (!JavaBoy.runningAsApplet) {
    saveBatteryRam();
-  }
+  
   disposed = true;
  }
 

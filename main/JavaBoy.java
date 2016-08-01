@@ -121,7 +121,6 @@ public class JavaBoy implements Runnable, ActionListener, ItemListener {
  private static String versionString = "0.92";
 
  private boolean appletRunning = true;
- public static boolean runningAsApplet;
  private Image backBuffer;
  private boolean gameRunning;
  private boolean fullFrame = true;
@@ -541,10 +540,9 @@ public class JavaBoy implements Runnable, ActionListener, ItemListener {
 
  public void setupKeyboard() {
 	if (!keyListener) {
-		if (!runningAsApplet) {
 			System.out.println("Starting key controls");
 			mainWindow.requestFocus();
-		}
+
 		keyListener = true;
 	}
  }
@@ -774,7 +772,6 @@ public class JavaBoy implements Runnable, ActionListener, ItemListener {
 
  public static void main(String[] args) {
   System.out.println("JavaBoy (tm) Version " + versionString + " (c) 2005 Neil Millstone (application)");
-  runningAsApplet = false;
   JavaBoy javaBoy = new JavaBoy("");
 
 //  javaBoy.mainWindow.addKeyListener(javaBoy);
