@@ -496,7 +496,7 @@ class GameBoyScreen extends Frame implements ActionListener,
    applet.dmgcpu.terminate = true;
   } else if (command.equals("Controls")) {
 //   makeControlsDialog();
-   new DefineControls();
+   System.out.println("rm with 2nd push");
   } else if (command.equals("Execute script")) {
    if (applet.dmgcpu != null) {
     FileDialog fd = new FileDialog(this, "Execute debugger script");
@@ -715,18 +715,7 @@ class GameBoyScreen extends Frame implements ActionListener,
     if (applet.dmgcpu != null) applet.dmgcpu.gameLink = null;
    }
   } else if (command.equals("Emulate printer")) {
-   if (networkPrinter.getState()) {
-    if (applet.gameLink != null) {
-     applet.gameLink.shutDown();
-	 networkServer.setState(false);
-	}
-    applet.gameLink = new GameBoyPrinter();
-	applet.gameLink.setDmgcpu(applet.dmgcpu);
-	applet.dmgcpu.gameLink = applet.gameLink;
-   } else {
-    applet.gameLink.shutDown();
-    applet.gameLink = null;
-   }
+   System.out.println("printer rm with 2nd push");
   } else {
    setColourScheme(command);
   }

@@ -373,7 +373,8 @@ public class JavaBoy extends java.applet.Applet implements Runnable, KeyListener
    dmgcpu.graphicsChip.setMagnify(4);
    imageSizeChanged = true;
   } else if (e.getActionCommand().equals("Define Controls")) {
-   new DefineControls();
+
+   System.out.println("rm with 2nd push");
   } else if (e.getActionCommand().equals("FrameSkip: 0")) {
    dmgcpu.graphicsChip.frameSkip = 1;
   } else if (e.getActionCommand().equals("FrameSkip: 1")) {
