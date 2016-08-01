@@ -639,11 +639,9 @@ class Dmgcpu {
      ioHandler.registers[0x44] = 0;
      if (soundChip != null) soundChip.outputSound();
      graphicsChip.frameDone = false;
-	 if (JavaBoy.runningAsApplet) {
-      ((JavaBoy) (applet)).drawNextFrame();
-	 } else {
+
       ((GameBoyScreen) (applet)).repaint();
-	 }
+	 
      try {
       while (!graphicsChip.frameDone) {
        java.lang.Thread.sleep(1);

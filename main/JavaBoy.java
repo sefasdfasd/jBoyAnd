@@ -111,7 +111,7 @@ import javax.sound.sampled.*;
 
 
 
-public class JavaBoy extends java.applet.Applet implements Runnable, KeyListener, WindowListener, MouseListener, ActionListener, ItemListener {
+public class JavaBoy implements Runnable, KeyListener, WindowListener, ActionListener, ItemListener {
  private final int WIDTH = 160;
  private final int HEIGHT = 144;
  private final String WEBSITE_URL = "http://www.millstone.demon.co.uk/download/javaboy";
@@ -241,122 +241,9 @@ public class JavaBoy extends java.applet.Applet implements Runnable, KeyListener
   return new String(hexByte((w & 0x0000FF00) >>  8) + hexByte(w & 0x000000FF));
  }
 
- /** When running as an applet, updates the screen when necessary */
- public void paint(Graphics g) {
-  if (dmgcpu != null) {
-   int stripLength = 300;
-
-   // Centre the GB image
-   int x = getSize().width / 2 - dmgcpu.graphicsChip.getWidth() / 2;
-   int y = getSize().height / 2 - dmgcpu.graphicsChip.getHeight() / 2;
-
-   if ((stripTimer > stripLength) && (!fullFrame) && (!imageSizeChanged)) {
-   /* if ((imageSizeChanged) || (fullFrame)) {
-	 if (dmgcpu.graphicsChip.isFrameReady()) {
-	  g.setColor(new Color((int) (Math.random() * 255), (int) (Math.random() * 255), (int) (Math.random() * 255)));
- 	  g.fillRect(0, 0, getSize().width, getSize().height);
- 	  imageSizeChanged = false;
-   	  if (fullFrame) {
-	   System.out.println("fullframe is " + fullFrame + " at "+ System.currentTimeMillis());
-	  }
-
-	 }
-	}*/
-	
-    dmgcpu.graphicsChip.draw(g, x, y, this);
-	
-   } else {
-    Graphics bufferGraphics = doubleBuffer.getGraphics();
-
-    if (dmgcpu.graphicsChip.isFrameReady()) {
-     bufferGraphics.setColor(new Color(255, 255, 255));
- 	 bufferGraphics.fillRect(0, 0, getSize().width, getSize().height);
-
-     dmgcpu.graphicsChip.draw(bufferGraphics, x, y, this);
 
 
-	 int stripPos = getSize().height - 40;
-	 if (stripTimer < 10) {
-      stripPos = getSize().height - (stripTimer * 4);
-	 }
-	 if (stripTimer >= stripLength - 10) {
-      stripPos = getSize().height - 40 + ((stripTimer - (stripLength - 10)) * 4);
-	 }
 
-     bufferGraphics.setColor(new Color(0,0,255));
-     bufferGraphics.fillRect(0, stripPos, getSize().width, 44);
- 
-     bufferGraphics.setColor(new Color(128,128,255));
-     bufferGraphics.fillRect(0, stripPos, getSize().width, 2);
- 
-     if (stripTimer < stripLength) {
-		if (stripTimer < stripLength / 2) {
-			 bufferGraphics.setColor(new Color(255, 255, 255));
-			 bufferGraphics.drawString("JavaBoy - Neil Millstone", 2, stripPos + 12);
-			 bufferGraphics.setColor(new Color(255, 255, 255));
-			 bufferGraphics.drawString("www.millstone.demon.co.uk", 2, stripPos + 24);
-			 bufferGraphics.drawString("/download/javaboy", 2, stripPos + 36);
-		 } else {
-			 bufferGraphics.setColor(new Color(255, 255, 255));
-			 bufferGraphics.drawString("ROM: " + cartridge.getCartName(), 2, stripPos + 12);
-			 bufferGraphics.drawString("Double click for options", 2, stripPos + 24);
-			 bufferGraphics.drawString("Emulator version: " + versionString, 2, stripPos + 36);
-		 }
-	}
-
-     stripTimer++;
- 	 g.drawImage(doubleBuffer, 0, 0, this);
-	} else {
-     dmgcpu.graphicsChip.draw(bufferGraphics, x, y, this);
-    }
-
-   } 
-
-
-//   g.drawString("www.millstone.demon.co.uk", 2, 126);
-
-
-  } else {
-   g.setColor(new Color(0,0,0));
-   g.fillRect(0, 0, 160, 144);
-   g.setColor(new Color(255, 255, 255));
-   g.drawRect(0, 0, 160, 144);
-   g.drawString("JavaBoy (tm)", 10, 10);
-   g.drawString("Version " + versionString, 10, 20);
-
-   g.drawString("Charging flux capacitor...", 10, 40);
-   g.drawString("Loading game ROM...", 10, 50);
-  }
-  
-  
- }
-
- /** Checks for mouse clicks when running as an applet */
- public void mouseClicked(MouseEvent e) {
-  long doubleClickTime = (System.currentTimeMillis() - lastClickTime);
-  
-  if (doubleClickTime <= 250) {
-   popupMenu.show(e.getComponent(), e.getX(), e.getY());
-  }
-//  System.out.println("Click! " + );
-  lastClickTime = System.currentTimeMillis();
- }
-
- public void mouseEntered(MouseEvent e) {
-
- }
-
- public void mouseExited(MouseEvent e) {
-
- }
-
- public void mousePressed(MouseEvent e) {
-
- }
-
- public void mouseReleased(MouseEvent e) {
-
- }
 
  public void actionPerformed(ActionEvent e) {
   System.out.println(e.getActionCommand());
@@ -406,11 +293,7 @@ public class JavaBoy extends java.applet.Applet implements Runnable, KeyListener
 
 
   } else if (e.getActionCommand().equals("JavaBoy Website")) {
-   try {
-    getAppletContext().showDocument(new URL(WEBSITE_URL), "_new");
-   } catch (MalformedURLException ex) {
 
-   }
   }
  }
 
@@ -438,17 +321,8 @@ public class JavaBoy extends java.applet.Applet implements Runnable, KeyListener
   debuggerActive = false;
  }
 
- public void update(Graphics g) {
-  paint(g);
-  fullFrame = true;
-  //System.out.println("fullframe true");
- }
- 
- public void drawNextFrame() {
-  //System.out.println("fullframe false");
-  fullFrame = false;
-  repaint();
- }
+
+
 
  public void keyTyped(KeyEvent e) {
  }
@@ -501,13 +375,9 @@ public class JavaBoy extends java.applet.Applet implements Runnable, KeyListener
   switch (key) {
    case KeyEvent.VK_F1    : if (dmgcpu.graphicsChip.frameSkip != 1)
                               dmgcpu.graphicsChip.frameSkip--;
-                            if (runningAsApplet)
-                             showStatus("Frameskip now " + dmgcpu.graphicsChip.frameSkip);
                             break;
    case KeyEvent.VK_F2    : if (dmgcpu.graphicsChip.frameSkip != 10)
                               dmgcpu.graphicsChip.frameSkip++;
-                            if (runningAsApplet)
-                             showStatus("Frameskip now " + dmgcpu.graphicsChip.frameSkip);
                             break;
    case KeyEvent.VK_F5    : dmgcpu.terminateProcess();
                             activateDebugger();
@@ -639,11 +509,8 @@ public class JavaBoy extends java.applet.Applet implements Runnable, KeyListener
   BufferedReader in = null;
   try {
 
-   if (JavaBoy.runningAsApplet) {
-    is = new URL(getDocumentBase(), fn).openStream();
-   } else {
-    is = new FileInputStream(new File(fn));
-   }
+   is = new FileInputStream(new File(fn));
+
    in = new BufferedReader(new InputStreamReader(is));
 
    String line;
@@ -678,8 +545,6 @@ public class JavaBoy extends java.applet.Applet implements Runnable, KeyListener
 			System.out.println("Starting key controls");
 			mainWindow.addKeyListener(this);
 			mainWindow.requestFocus();
-		} else {
-			addKeyListener(this);
 		}
 		keyListener = true;
 	}
@@ -761,7 +626,7 @@ public class JavaBoy extends java.applet.Applet implements Runnable, KeyListener
          dmgcpu.reset();
          break;
     case 'o' :
-         repaint();
+         //repaint();
          break;
     case 'c' :
          try {
@@ -926,7 +791,6 @@ public class JavaBoy extends java.applet.Applet implements Runnable, KeyListener
  public JavaBoy(String cartName) {
   mainWindow = new GameBoyScreen("JavaBoy " + versionString, this);
   mainWindow.setVisible(true);
-  this.requestFocus();
 //  mainWindow.addKeyListener(this);
   mainWindow.addWindowListener(this);
 //  cartridge = new Cartridge(cartName, mainWindow);
@@ -953,81 +817,15 @@ public class JavaBoy extends java.applet.Applet implements Runnable, KeyListener
   p.start();
  }
 
- public void start() {
-  Thread p = new Thread(this);
 
-  runningAsApplet = true;
-  setupKeyboard();
-  System.out.println("JavaBoy (tm) Version " + versionString + " (c) 2005 Neil Millstone (applet)");
-	
-
-  cartridge = new Cartridge(getParameter("ROMIMAGE"), this);
-  dmgcpu = new Dmgcpu(cartridge, null, this);
-  dmgcpu.graphicsChip.setMagnify(getSize().width / 160);
-  this.requestFocus();
-  p.start();
-
-  saveToWebEnable = getParameter("SAVERAMURL") != null;
-
-  popupMenu = new java.awt.PopupMenu();
-  popupMenu.add("JavaBoy " + versionString);
-  popupMenu.add("-");
-  popupMenu.add("Define Controls");
-  popupMenu.add(soundCheck = new java.awt.CheckboxMenuItem("Sound"));
-  popupMenu.add("-");
-  popupMenu.add("Reset");
-
-  if (saveToWebEnable) {
-   popupMenu.add("Save");
-   popupMenu.add("Load");
-  }
-  
-  popupMenu.add("-");
-  popupMenu.add("Size: 1x");
-  popupMenu.add("Size: 2x");
-  popupMenu.add("Size: 3x");
-  popupMenu.add("Size: 4x");
-  popupMenu.add("-");
-  popupMenu.add("FrameSkip: 0");
-  popupMenu.add("FrameSkip: 1");
-  popupMenu.add("FrameSkip: 2");
-  popupMenu.add("FrameSkip: 3");
-  popupMenu.add("-");
-  popupMenu.add("JavaBoy Website");
-  popupMenu.addActionListener(this);
-
-  soundCheck.addItemListener(this);
-  setSoundEnable((getParameter("SOUND") == null) || (getParameter("SOUND").equals("ON")));
-
-
-  addMouseListener(this);
-  add(popupMenu);
-
-  cartridge.outputCartInfo();
-
- }
 
  public void run() {
-  if (runningAsApplet) {
-   System.out.println("Starting...");
-/*   if (getParameter("AUTOSCRIPT") == null) {
-    executeDebuggerScript("startup.scp");
-   } else {
-    executeDebuggerScript(getParameter("AUTOSCRIPT"));
-   }*/
-
-   do {
-    dmgcpu.reset();
-    dmgcpu.execute(-1);
-   } while (appletRunning);
-  }
 
   do {
 //   repaint();
    try {
     getDebuggerMenuChoice();
     java.lang.Thread.sleep(1);
-    this.requestFocus();
    } catch (InterruptedException e) {
     System.out.println("Interrupted!");
     break;
@@ -1043,16 +841,9 @@ public class JavaBoy extends java.applet.Applet implements Runnable, KeyListener
   if (dmgcpu != null) dmgcpu.dispose();
  }
 
- public void init() {
-  requestFocus();
-  doubleBuffer = createImage(getSize().width, getSize().height);
- }
 
- public void stop() {
-  System.out.println("Applet stopped");
-  appletRunning = false;
-  if (dmgcpu != null) dmgcpu.terminate = true;
- }
+
+
 
 }
 
